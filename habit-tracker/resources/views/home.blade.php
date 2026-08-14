@@ -1,15 +1,7 @@
-<h1>
-    Home page <br> Ola
-</h1>
-<p>Nome: {{ $nome }} </p>
-<p>Idade: {{ $idade }}</p>
-
-<ul>
-    @foreach ($habitos as $item)
-        <li> {{ $item }} </li>
-    @endforeach
-</ul>
-
-@guest
-    <p>Voce não esta logado!</p>
-@endguest
+<x-layout>
+    <main class="py-10">
+        <h1>
+            Veja seus habitos
+        </h1>
+    </main>
+</x-layout>
