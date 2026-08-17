@@ -15,8 +15,10 @@ return new class extends Migration
             $table->id();
             $table->ForeignIdFor(\App\Models\User::class)->constrained()->cascadeOnDelete();
             $table->ForeignIdFor(\App\Models\Habit::class)->constrained()->cascadeOnDelete();
-            $table->date('completade_at');
+            $table->date('completed_at');
             $table->timestamps();
+
+            $table->unique(['habit_id', 'completed_at']);
         });
     }
 
@@ -28,3 +30,5 @@ return new class extends Migration
         Schema::dropIfExists('habit_logs');
     }
 };
+
+

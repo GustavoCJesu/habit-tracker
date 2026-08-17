@@ -14,7 +14,10 @@ return new class extends Migration {
         Schema::create('habits', function (Blueprint $table) {
             $table->id();
             $table->ForeignIdFor(\App\Models\User::class)->constrained()->cascadeOnDelete();
+            $table->string('name')->unique();
             $table->timestamps();
+
+            
         });
     }
 
