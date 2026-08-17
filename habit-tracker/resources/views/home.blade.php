@@ -5,7 +5,7 @@
         </h1>
         @auth
             <h2>
-                Bem vindo {{ $nome }}!!
+                Bem vindo {{ auth()->user()->name }}!!
             </h2>
             <p>Voce esta logado!!!</p>
         @endauth

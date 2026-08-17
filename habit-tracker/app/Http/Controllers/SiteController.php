@@ -14,10 +14,16 @@ class SiteController extends Controller {
             'Correr', 'Ler', 'Jogar', 'Brincar', 'Comer', 'Nadar'
         ];
 
-        return view('home', [
-            'nome' => $nome,
-            'idade' => $idade,
-            'habitos' => $habitos,
-        ]);
+        // return view('home', [
+        //     'nome' => $nome,
+        //     'idade' => $idade,
+        //     'habitos' => $habitos,
+        // ]);
+
+        return view('home',compact('nome', 'idade' ,'habitos'));
+    }
+
+    public function dashboard() {
+        return view('dashboard');
     }
 }
