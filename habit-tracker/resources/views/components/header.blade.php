@@ -1,11 +1,13 @@
 <header class="flex border-top border-b-2 justify-between p-4 bg-white">
 
-    <a href="{{ route('habits.index') }}" class="habit-btn habit-shadow-lg px-2 py-1 bg-habit-orange">
-        HT
-    </a>
+    <div class="flex items-center gap-2">
+        <a href="{{ route('habits.index') }}" class="habit-btn habit-shadow-lg px-2 py-1 bg-habit-orange">
+            HT
+        </a>
+        <p>Habit Tracker</p>
+    </div>
 
     <div class="flex gap-2 items-center">
-        <p></p>
         @auth
             <form class="inline" action={{ route('auth.logout') }} method="POST">
                 @csrf

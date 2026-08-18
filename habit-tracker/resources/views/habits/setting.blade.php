@@ -19,16 +19,15 @@
                 @forelse ($habits as $item)
                     <li class="habit-shadow-lg p-2 bg-[#FFDAAC]">
                         <div class="flex gap-2 items-center">
-                            <input type="checkbox" name="" id="" class="w-5 h-5">
+                            
                             <p class="font-bold text-lg">
                                 {{ $item->name }}
                             </p>
                             <form action="{{ route('habits.destroy', $item) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-
                                 <button type="submit"
-                                    class="bg-red-500 text-white p-1 hover:opacity-50 cursor-pointer">
+                                    class="bg-red-500 text-white p-1 hover:opacity-50 cursor-pointer block">
                                     <x-icons.trash />
                                 </button>
                             </form>

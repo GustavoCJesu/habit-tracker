@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\HabitRequest;
 use App\Models\Habit;
+use App\Models\HabitLog;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Carbon;
 
 class HabitController extends Controller {
     /**
@@ -19,9 +21,15 @@ class HabitController extends Controller {
 
     }
 
+    private function user(): User{
+        return Auth::user();
+    }
+
     public function index(): View {
 
-        $habits = auth('web')->user()->habits;
+
+
+        $habits = $this->user()->habits;
 
         return view('dashboard', compact('habits'));
     }
@@ -33,12 +41,9 @@ class HabitController extends Controller {
 
         $validated = $request->validated();
 
-        /** @var User $user */
-        $user = Auth::user();
+        $this->user()->habits()->create($validated);
 
-        $user->habits()->create($validated);
-
-        return redirect(route('site.dashboard'))->with('success', 'Habito Criado com sucesso!');
+        return redirect(route('habits.index'))->with('success', 'Habito Criado com sucesso!');
 
     }
 
@@ -64,13 +69,13 @@ class HabitController extends Controller {
     public function update(Request $request, Habit $habit) {
 
 
-        if($habit->user_id != Auth::user()->id){
+        if($habit->user_id != $this->user()->id){
             abort(403, "Esse habito não pertence a sua conta");
         }
 
         $habit->update($request->all());
 
-        return redirect(route('site.dashboard'))->with('success', 'Seu habito foi editado com sucesso!');
+        return redirect(route('habits.index'))->with('success', 'Seu habito foi editado com sucesso!');
     }
 
     /**
@@ -78,18 +83,47 @@ class HabitController extends Controller {
      */
     public function destroy(Habit $habit) {
 
-        if($habit->user_id != Auth::user()->id){
+        if($habit->user_id != $this->user()->id){
             abort(403, "Esse habito não pertence a sua conta");
         }
 
         $habit->delete();
 
-        return redirect(route('site.dashboard'))->with('success', 'Hábito deletado com sucesso!');
+        return redirect(route('habits.index'))->with('success', 'Hábito deletado com sucesso!');
     }
 
     public function settings(){
 
-        $habits = Auth::user()->habits;
+        $habits = $this->user()->habits;
         return (view('habits.setting', compact('habits')));
+    }
+
+    public function toggle(Habit $habit) {
+
+        if($habit->user_id != $this->user()->id){
+            abort(403, "Esse habito não pertence a sua conta");
+        }
+
+        $today = Carbon::today()->toDateString();
+
+        $log = HabitLog::query()
+        ->where('habit_id', $habit->id)
+        ->where('completed_at', $today)
+        ->first();
+
+        if($log){
+            $log->delete();
+            $message = 'Hábito desmarcado.';
+        }else{
+            HabitLog::create([
+                'habit_id'=> $habit->id,
+                'user_id' => $this->user()->id,
+                'completed_at' => $today,
+            ]);
+            $message = 'Hábito concluido!!';
+        }
+
+        return redirect(route('habits.index'))
+        ->with('success', $message);
     }
 }

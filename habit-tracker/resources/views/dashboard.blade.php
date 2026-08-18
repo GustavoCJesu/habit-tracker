@@ -16,13 +16,24 @@
                 Confirmar Hábitos
             </h2>
             <ul class="flex flex-col gap-2">
+
+
+
                 @forelse ($habits as $item)
+                    @php
+                        $wasCompletedToday = $item->habitLog->where('user_id', auth()->id())->where('completed_at', \Carbon\Carbon::today()->toDateString())->isNotEmpty();
+                    @endphp
                     <li class="habit-shadow-lg p-2 bg-[#FFDAAC]">
-                        <div class="flex gap-2 items-center">
+                        <form id="form-{{ $item->id }}" method="POST" action="{{ route('habits.toggle', $item->id) }}"
+                            class="flex gap-2 items-center">
+                            @csrf
+                            <input type="checkbox" 
+                            {{ $wasCompletedToday ? 'checked' : '' }} 
+                            onChange="document.getElementById('form-{{ $item->id }}').submit()" class="w-5 h-5">
                             <p class="font-bold text-lg">
                                 {{ $item->name }}
                             </p>
-                        </div>
+                        </form>
                     </li>
 
                 @empty
