@@ -32,7 +32,7 @@ class HabitController extends Controller {
         $user->habits()->create($validated);
 
         return redirect(route('site.dashboard'))->with('success', 'Habito Criado com sucesso!');
- 
+
     }
 
     /**
@@ -60,6 +60,13 @@ class HabitController extends Controller {
      * Remove the specified resource from storage.
      */
     public function destroy(Habit $habit) {
-        //
+
+        if($habit->user_id != Auth::user()->id){
+            abort(403, "Esse habito não pertence a sua conta");
+        }
+
+        $habit->delete();
+
+        return redirect(route('site.dashboard'))->with('success', 'Hábito deletado com sucesso!');
     }
 }

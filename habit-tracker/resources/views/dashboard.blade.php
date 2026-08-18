@@ -21,16 +21,29 @@
             </h2>
             <ul class="flex flex-col gap-2">
                 @forelse ($habits as $item)
-                    <div class="flex gap-2 items-center">
-                        <li class="pl-4">
+                    <li class="pl-4">
+                        <div class="flex gap-2 items-center">
                             <p class="font-bold text-lg">
-                                - {{ $item->name }} {{ $item->habitLog->count() }}
+                                - {{ $item->name }} 
                             </p>
-                        </li>
-                    </div>
+                            <p>
+                                {{ $item->habitLog->count() }}
+                            </p>
+                            
+                            <form action="{{ route('habit.destroy', $item) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+
+                                <button type="submit" class="bg-red-500 text-white p-1 border-2 hover:opacity-50 cursor-pointer">
+                                    <x-icons.trash />
+                                </button>
+                            </form>
+                        </div>
+                    </li>
+
                 @empty
                     <p class="font-light">Voce ainda não tem nenhum hábito cadastrado</p>
-                    <a class="font-light bg-white border-2 p-2" href="habito/cadastrar">Cadastre um agora mesmo!</a>
+                    <a class="font-light bg-white border-2 p-2" href="{{ route('habits.create') }}">Cadastre um agora mesmo!</a>
                 @endforelse ()
             </ul>
         </div>
