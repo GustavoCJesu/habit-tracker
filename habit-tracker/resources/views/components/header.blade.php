@@ -14,6 +14,7 @@
 
         @guest
             <a href={{ route('site.login') }}>Login</a>
+            <a href="{{ route('site.register') }}">Registrar-se</a>
         @endguest
     </div>
 

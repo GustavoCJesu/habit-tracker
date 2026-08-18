@@ -4,7 +4,7 @@
 
             <h1 class="font-bold text-3xl">Edite seu hábito</h1>
 
-            <form class="flex flex-col" action="{{ route('habit.update', $habit->id) }}" method="POST">
+            <form class="flex flex-col" action="{{ route('habits.update', $habit->id) }}" method="POST">
                 @csrf
                 @method('PUT')
 
