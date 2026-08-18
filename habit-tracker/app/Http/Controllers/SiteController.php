@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+/**@var */
+
 use Illuminate\View\View;
 
 class SiteController extends Controller {
@@ -15,7 +17,7 @@ class SiteController extends Controller {
 
     public function dashboard(): View {
 
-        $habits = auth()->user()->habits;
+        $habits = auth('web')->user()->habits;
 
         return view('dashboard', compact('habits'));
     }
