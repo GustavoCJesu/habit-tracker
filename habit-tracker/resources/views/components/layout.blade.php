@@ -10,7 +10,7 @@
         @vite('resources/css/app.css')
     </head>
 
-    <body class="bg-[#FFEDD6]">
+    <body class="bg-[#FFEDD6] min-h-screen flex flex-col justify-between font-mono">
 
         <x-header/>
 

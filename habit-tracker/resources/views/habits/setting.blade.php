@@ -13,15 +13,29 @@
 
         <div>
             <h2 class="text-xl mt-8 mb-4">
-                Confirmar Hábitos
+                {{ date('d-m-Y') }}
             </h2>
             <ul class="flex flex-col gap-2">
                 @forelse ($habits as $item)
                     <li class="habit-shadow-lg p-2 bg-[#FFDAAC]">
                         <div class="flex gap-2 items-center">
+                            <input type="checkbox" name="" id="" class="w-5 h-5">
                             <p class="font-bold text-lg">
                                 {{ $item->name }}
                             </p>
+                            <form action="{{ route('habits.destroy', $item) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+
+                                <button type="submit"
+                                    class="bg-red-500 text-white p-1 hover:opacity-50 cursor-pointer">
+                                    <x-icons.trash />
+                                </button>
+                            </form>
+                            <a href="{{ route('habits.edit', $item->id) }}"
+                                class="bg-gray-500 text-white p-1  hover:opacity-50 cursor-pointer" type="submit">
+                                <x-icons.pencil />
+                            </a>
                         </div>
                     </li>
 

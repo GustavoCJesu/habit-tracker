@@ -6,8 +6,8 @@ use App\Http\Requests\HabitRequest;
 use App\Models\Habit;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Auth;
 
 class HabitController extends Controller {
     /**
@@ -17,6 +17,13 @@ class HabitController extends Controller {
 
         return view('habits.create');
 
+    }
+
+    public function index(): View {
+
+        $habits = auth('web')->user()->habits;
+
+        return view('dashboard', compact('habits'));
     }
 
     /**
@@ -78,5 +85,11 @@ class HabitController extends Controller {
         $habit->delete();
 
         return redirect(route('site.dashboard'))->with('success', 'Hábito deletado com sucesso!');
+    }
+
+    public function settings(){
+
+        $habits = Auth::user()->habits;
+        return (view('habits.setting', compact('habits')));
     }
 }

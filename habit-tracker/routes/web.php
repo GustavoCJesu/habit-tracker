@@ -20,7 +20,7 @@ Route::post('/cadastro', [RegistroController::class, 'store'])->name('auth.regis
 
 //AUTH
 Route::middleware('auth')->group(function(){
-    Route::get('/dashboard', [SiteController::class, 'dashboard'])->name('site.dashboard'); // Dashboard do usuário autenticado
+    Route::get('/dashboard', [HabitController::class, 'index'])->name('site.dashboard'); // Dashboard do usuário autenticado
     Route::post('/logout', [LoginController::class, 'logout'])->name('auth.logout'); // Realiza o logout
     //Habitos
     Route::get('/dashboard/habits/create', [HabitController::class, 'create'])->name('habits.create'); // Formulário de criação de hábito
@@ -31,6 +31,7 @@ Route::middleware('auth')->group(function(){
     // Route::put('/dashboard/habits/{habit}', [HabitController::class, 'update'])->name('habit.update'); // Atualiza um hábito
 
     Route::resource('/dashboard/habits', HabitController::class)->except('show');
+    Route::get('/dashboard/habits/configurar', [HabitController::class, 'settings'])->name('habits.settings');
 });
 
 
