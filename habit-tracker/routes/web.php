@@ -28,6 +28,9 @@ Route::middleware('auth')->group(function(){
     Route::post('/dashboard/habits', [HabitController::class, 'store'])->name('habits.store');
 
     Route::delete('/dashboard/habits/{habit}', [HabitController::class, 'destroy'])->name('habit.destroy');
+    Route::get('/dashboard/habits/{habit}/edit', [HabitController::class, 'edit'])->name('habit.edit');
+
+    Route::put('/dashboard/habits/{habit}', [HabitController::class, 'update'])->name('habit.update');
 });
 
 

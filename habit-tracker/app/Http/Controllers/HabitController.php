@@ -46,14 +46,24 @@ class HabitController extends Controller {
      * Show the form for editing the specified resource.
      */
     public function edit(Habit $habit) {
-        //
+
+        return view('habits.edit', compact('habit'));
+
     }
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, Habit $habit) {
-        //
+
+
+        if($habit->user_id != Auth::user()->id){
+            abort(403, "Esse habito não pertence a sua conta");
+        }
+
+        $habit->update($request->all());
+
+        return redirect(route('site.dashboard'))->with('success', 'Seu habito foi editado com sucesso!');
     }
 
     /**
