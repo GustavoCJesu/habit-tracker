@@ -25,9 +25,6 @@
                 Confirmar Hábitos
             </h2>
             <ul class="flex flex-col gap-2">
-
-                
-
                 @forelse ($habits as $item)
                     <li class="habit-shadow-lg p-2 bg-[#FFDAAC]">
                         <form id="form-{{ $item->id }}" method="POST"
@@ -36,7 +33,7 @@
                             @csrf
                             <input id="check-box{{ $item->id }}" type="checkbox"
                                 {{ $item->is_completed ? 'checked' : '' }}
-                                {{ $item->wasCompletedToday() }}
+                                {{ $item->wasCompletedToday() ? 'checked' : ''}}
                                 onChange="document.getElementById('form-{{ $item->id }}').submit()" class="w-5 h-5">
                             <p class="font-bold text-lg">
                                 {{ $item->name }}

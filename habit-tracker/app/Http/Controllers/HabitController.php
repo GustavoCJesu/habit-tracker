@@ -6,12 +6,16 @@ use App\Http\Requests\HabitRequest;
 use App\Models\Habit;
 use App\Models\HabitLog;
 use App\Models\User;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
 
 class HabitController extends Controller {
+
+    use AuthorizesRequests;
+
     /**
      * Show the form for creating a new resource.
      */
@@ -57,6 +61,7 @@ class HabitController extends Controller {
      */
     public function edit(Habit $habit) {
 
+        $this->authorize('update', $habit);
         return view('habits.edit', compact('habit'));
 
     }
@@ -67,9 +72,7 @@ class HabitController extends Controller {
     public function update(Request $request, Habit $habit) {
 
 
-        if($habit->user_id != $this->user()->id){
-            abort(403, "Esse habito não pertence a sua conta");
-        }
+        $this->authorize('update', $habit);
 
         $habit->update($request->all());
 
@@ -81,9 +84,7 @@ class HabitController extends Controller {
      */
     public function destroy(Habit $habit) {
 
-        if($habit->user_id != $this->user()->id){
-            abort(403, "Esse habito não pertence a sua conta");
-        }
+        $this->authorize('delete', $habit);
 
         $habit->delete();
 
@@ -98,9 +99,7 @@ class HabitController extends Controller {
 
     public function toggle(Habit $habit) {
 
-        if($habit->user_id != $this->user()->id){
-            abort(403, "Esse habito não pertence a sua conta");
-        }
+        $this->authorize('toggle', $habit);
 
         $today = Carbon::today()->toDateString();
 
@@ -111,7 +110,7 @@ class HabitController extends Controller {
 
         if($log){
             $log->delete();
-            $status = 'delete';
+            $status  = 'delete';
             $message = 'Hábito desmarcado.';
         }else{
             HabitLog::create([
@@ -119,7 +118,7 @@ class HabitController extends Controller {
                 'user_id' => $this->user()->id,
                 'completed_at' => $today,
             ]);
-            $status = 'success';
+            $status  = 'success';
             $message = 'Hábito concluido!!';
         }
 
