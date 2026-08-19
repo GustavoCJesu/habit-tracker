@@ -14,6 +14,6 @@ class HabitSeeder extends Seeder
      */
     public function run(): void
     {
-        Habit::factory()->count(10)->create();
+        Habit::factory()->count(3)->create();
     }
 }

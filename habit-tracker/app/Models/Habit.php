@@ -6,10 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Carbon;
 
 class Habit extends Model{
+
     use HasFactory;
-    
+
     protected $fillable = [
         'user_id',
         'name',
@@ -21,5 +23,11 @@ class Habit extends Model{
 
     public function habitLog(): HasMany{
         return $this->hasMany(HabitLog::class);
+    }
+
+    public function wasCompletedToday(): bool{
+        return $this->habitLog
+        ->where('completed_at', Carbon::today()->toDateString())
+        ->isNotEmpty();
     }
 }

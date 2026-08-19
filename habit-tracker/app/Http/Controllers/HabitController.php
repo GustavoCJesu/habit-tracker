@@ -27,9 +27,7 @@ class HabitController extends Controller {
 
     public function index(): View {
 
-
-
-        $habits = $this->user()->habits;
+        $habits = $this->user()->habits()->with('habitLog')->get();
 
         return view('dashboard', compact('habits'));
     }
@@ -113,6 +111,7 @@ class HabitController extends Controller {
 
         if($log){
             $log->delete();
+            $status = 'delete';
             $message = 'Hábito desmarcado.';
         }else{
             HabitLog::create([
@@ -120,10 +119,11 @@ class HabitController extends Controller {
                 'user_id' => $this->user()->id,
                 'completed_at' => $today,
             ]);
+            $status = 'success';
             $message = 'Hábito concluido!!';
         }
 
         return redirect(route('habits.index'))
-        ->with('success', $message);
+        ->with($status, $message);
     }
 }
