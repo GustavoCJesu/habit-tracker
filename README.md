@@ -89,14 +89,3 @@ As principais rotas são:
 | `resource` | `/dashboard/habits` | CRUD de hábitos |
 | `POST` | `/dashboard/habits/{habit}/toggle` | Marca/desmarca a conclusão do dia |
 | `GET` | `/dashboard/habits/historico{year?}` | Histórico anual em heatmap |
-
-## Testes
-
-```bash
-php artisan test
-```
-
-## Licença
-
-Defina aqui a licença do projeto (ex.: MIT).
-EOF
