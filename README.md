@@ -1,4 +1,3 @@
-cat > README.md << 'EOF'
 # Habit Tracker
 
 Aplicação web para acompanhar hábitos diários, construída com **Laravel 13**. Cada usuário pode registrar seus hábitos, marcar a conclusão do dia e visualizar o progresso ao longo do ano em um mapa de calor no estilo do gráfico de contribuições do GitHub.
