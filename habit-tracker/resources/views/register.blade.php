@@ -1,5 +1,5 @@
 <x-layout>
-    <main class="py-10">
+    <main class="py-10 max-w-7xl mx-auto">
         <section class="bg-white max-w-150 mx-auto p-10 border-2 mt-4 ">
 
             <h1 class="font-bold text-3xl">Crie sua conta!</h1>

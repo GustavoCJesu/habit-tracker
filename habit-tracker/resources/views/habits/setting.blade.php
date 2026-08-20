@@ -1,5 +1,5 @@
 <x-layout>
-    <main class="py-10 min-h-[calc(100vh-160px)] px-4">
+    <main class="py-10 min-h-[calc(100vh-160px)] px-4 ">
 
         <x-navbar />
 
@@ -11,7 +11,7 @@
             </div>
         @endsession
 
-        <div>
+        <div class="max-w-7xl mx-auto">
             <h2 class="text-xl mt-8 mb-4">
                 {{ date('d-m-Y') }}
             </h2>

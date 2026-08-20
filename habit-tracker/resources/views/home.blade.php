@@ -1,5 +1,5 @@
 <x-layout>
-    <main class="py-10">
+    <main class="py-10 max-w-7xl mx-auto">
         <h1>
             Veja seus habitos
         </h1>

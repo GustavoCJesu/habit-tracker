@@ -27,6 +27,9 @@ Route::middleware('auth')->group(function(){// Dashboard do usuário autenticado
     Route::get('/dashboard/habits/configurar', [HabitController::class, 'settings'])->name('habits.settings');
 
     Route::post('/dashboard/habits/{habit}/toggle', [HabitController::class, 'toggle'])->name('habits.toggle');
+
+    Route::get('/dashboard/habits/historico', [HabitController::class, 'history'])->name('habits.history');
+
 });
 
 

@@ -7,13 +7,13 @@
             </a>
         </li>
         <li>
-            <a href="#" class="font-light text-md border-r-2 border-habit-orange pr-4 hover:underline">
+            <a href="{{ route('habits.history') }}" class="font-light text-md border-r-2 border-habit-orange pr-4 hover:underline">
                 Historico
             </a>
         </li>
         <li>
             <a
-                href="{{ route('habits.index') }}"class="font-light text-md border-r-2 border-habit-orange pr-4 hover:underline">
+                href="#"class="font-light text-md border-r-2 border-habit-orange pr-4 hover:underline">
                 Calendário
             </a>
         </li>

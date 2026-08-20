@@ -36,6 +36,21 @@ class HabitController extends Controller {
         return view('dashboard', compact('habits'));
     }
 
+    public function history(): View{
+
+        $selectedYear = Carbon::now()->year;
+
+        $startDate = Carbon::create($selectedYear, 1, 1);
+
+        $endDate = Carbon::create($selectedYear, 12, 31, 23, 59, 59);
+
+        $habits = $this->user()->habits()->with(['habitLog' => function($query) use ($startDate, $endDate){
+            $query->whereBetween('completed_at', [$startDate, $endDate]);
+        }])->get();
+        
+        return view('history', compact('habits', 'selectedYear'));
+    }
+
     /**
      * Store a newly created resource in storage.
      */
